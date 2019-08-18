@@ -1,0 +1,11 @@
+{
+"AccessKeyID" : "LTAI1OYzgCMdPBO2",
+"AccessKeySecret" : "wQnEecSjLxE0RzHzxxZBIuXmaRDYtj",
+"RoleArn" : "acs:ram::1943264197978877:role/uploa",
+"BucketName" : "guichaokeji",
+"Endpoint" : "oss-cn-beijing.aliyuncs.com",
+"TokenExpireTime" : "900",
+"PolicyFile": "policy/all_policy.txt"
+}
+
+

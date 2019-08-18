@@ -1,0 +1,8 @@
+{
+    "require": {
+         "qcloud/cos-sdk-v5": ">=1.0",
+	  	 "filp/whoops":"*",
+	  	 "symfony/var-dumper":"*",
+	  	 "catfan/medoo":"*"
+    }
+}
