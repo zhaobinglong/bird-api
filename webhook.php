@@ -1,6 +1,6 @@
 <?php
 
-$command = "cd /home/wwwroot/default/bird && git pull 2>&1";
+$command = "cd /home/wwwroot/default/bird-api && git pull 2>&1";
 
 $res = shell_exec($command);
 
