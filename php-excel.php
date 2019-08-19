@@ -21,9 +21,9 @@ for ($row = 2; $row <= $highestRow; $row++) {
 		$val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
 		$row_arr[] = $val;
 	}
-	var_dump($row_arr);
-	// $sql = "insert into bird_seller(`company_code`, `company_name`, `sub_company_code`, `sub_company_name`, `team_code`, `team_name`, `team_type`, `user_code`, `user_trans_code`, `user_name`, `user_param`, `user_type`, `user_post`, `user_office`) value('" . $row_arr[0] . "','" . $row_arr[1] . "','" . $row_arr[2] . "','" . $row_arr[3] . "','" . $row_arr[4] . "','" . $row_arr[5] . "','" . $row_arr[6] . "','" . $row_arr[7] . "','" . $row_arr[8] . "','" . $row_arr[9] . "','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "')";
+
+	$sql = "insert into bird_company(`company_code`, `company_name`, `sub_company_code`, `sub_company_name`) value('" . $row_arr[0] . "','" . $row_arr[1] . "','" . $row_arr[2] . "','" . $row_arr[3] . "')";
 	// var_dump($sql);
-	// $db->dql($sql);
-	// $res_arr[] = $row_arr;
+	$db->dql($sql);
+	$res_arr[] = $row_arr;
 }
