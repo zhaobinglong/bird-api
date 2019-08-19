@@ -59,7 +59,7 @@ class bird {
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
 			array_push($data, $row);
 		}
-		$this->sendData($res);
+		$this->sendData($data);
 	}
 
 	// 销售提交注册信息
