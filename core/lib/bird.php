@@ -46,6 +46,22 @@ class bird {
 		$res = mysql_fetch_array($this->db->dql($sql), MYSQL_ASSOC);
 		$this->sendData($res);
 	}
+
+	// 获取全部的公司信息
+	public function getCompanys() {
+		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
+		$mypost = json_decode($rws_post);
+
+		$sql = "select * from bird_company";
+
+		$res = $this->db->dql($sql);
+		$data = array();
+		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
+			array_push($data, $row);
+		}
+		$this->sendData($res);
+	}
+
 	// 销售提交注册信息
 	public function sellerApply() {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
