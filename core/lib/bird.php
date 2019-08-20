@@ -591,7 +591,7 @@ class bird {
 		$msectime_before = $msectime_now - 12 * 60 * 60 * 1000;
 
 		$sql = 'select * from bird_order where 	flowintime >' . $msectime_before;
-		$res = $db->dql($sql);
+		$res = $this->db->dql($sql);
 
 		$data = array();
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
