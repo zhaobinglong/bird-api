@@ -5,7 +5,7 @@ require_once __DIR__ . '/PHPExcel-1.8/Classes/PHPExcel/IOFactory.php';
 include __DIR__ . '/core/lib/db.class.php';
 $db = new db();
 
-$filename = __DIR__ . '/doc/2.xlsx';
+$filename = __DIR__ . '/doc/3.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
 
 $sheet = $objPHPExcelReader->getSheet(0); // 读取第一个工作表(编号从 0 开始)
