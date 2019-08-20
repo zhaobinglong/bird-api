@@ -594,7 +594,7 @@ class bird {
 		$res = $this->db->dql($sql);
 
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
-			// var_dump($row);
+			var_dump($row);
 			$xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $row['exchangeNo']);
 
 			$url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Cbc';
@@ -610,7 +610,7 @@ class bird {
 			$res = curl_exec($curl);
 			curl_close($curl);
 			if ($res == '进入熔断器了') {
-				$this->sendData('进入熔断器了');
+				var_dump($res);
 			} else {
 				$postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
 				$this->savePolicyno($postObj);
