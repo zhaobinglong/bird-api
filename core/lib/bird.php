@@ -593,9 +593,14 @@ class bird {
 		$sql = 'select * from bird_order where 	flowintime >' . $msectime_before;
 		$res = $this->db->dql($sql);
 
+		$data = array();
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
-			var_dump($row);
-			$xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $row['exchangeNo']);
+			array_push($data, $row);
+		}
+
+		for ($i = 0; $i < count($data); $i++) {
+
+			$xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $data[$i]['exchangeNo']);
 
 			$url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Cbc';
 			$curl = curl_init();
