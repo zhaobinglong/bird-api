@@ -18,7 +18,7 @@ header("Content-type: text/html; charset=utf-8");
 
 include __ROOT__ . '/core/lib/db.class.php';
 
-var_dump(__ROOT__);
+echo __ROOT__ . '/core/lib/db.class.php';
 
 // $db = new db();
 // // $jssdk = new JSSDK("wxfcacdc74295aabe5", "2465bb511cc5f5da62038e58841e78eb");
