@@ -30,7 +30,7 @@ $db = new db();
 list($msec, $sec) = explode(' ', microtime());
 $msectime_now = (float) sprintf('%.0f', (floatval($msec) + floatval($sec)) * 1000);
 
-$msectime_before = $msectime_now - 2 * 60 * 60 * 1000;
+$msectime_before = $msectime_now - 12 * 60 * 60 * 1000;
 
 $sql = 'select * from bird_order where 	flowintime >' . $msectime_before;
 var_dump($sql);
