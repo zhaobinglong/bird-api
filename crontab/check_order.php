@@ -18,7 +18,7 @@ header("Content-type: text/html; charset=utf-8");
 
 require_once __ROOT__ . '/core/lib/db.class.php';
 
-$db = new DB();
+$db = new db();
 // $jssdk = new JSSDK("wxfcacdc74295aabe5", "2465bb511cc5f5da62038e58841e78eb");
 
 // 每过半个小时推送一次
