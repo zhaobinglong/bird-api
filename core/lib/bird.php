@@ -593,32 +593,28 @@ class bird {
 		$sql = 'select * from bird_order where 	flowintime >' . $msectime_before;
 		$res = $this->db->dql($sql);
 
-		$data = array();
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
-			array_push($data, $row);
+			$xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $row->exchangeNo);
+			$url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Cbc';
+			$curl = curl_init();
+			$header[] = "Content-type: text/xml";
+			curl_setopt($curl, CURLOPT_URL, $url);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+			curl_setopt($curl, CURLOPT_POST, true);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+			$res = curl_exec($curl);
+			curl_close($curl);
+			if ($res == '进入熔断器了') {
+				$this->sendData('进入熔断器了');
+			} else {
+				$postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
+				$this->savePolicyno($postObj);
+				var_dump($postObj);
+			}
 		}
-
-		var_dump($data);
-		// $xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $mypost->exchangeno);
-		// $url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Cbc';
-		// $curl = curl_init();
-		// $header[] = "Content-type: text/xml";
-		// curl_setopt($curl, CURLOPT_URL, $url);
-		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		// curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-		// curl_setopt($curl, CURLOPT_POST, true);
-		// curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);
-		// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-		// $res = curl_exec($curl);
-		// curl_close($curl);
-		// if ($res == '进入熔断器了') {
-		// 	$this->sendData('进入熔断器了');
-		// } else {
-		// 	$postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
-		// 	$this->savePolicyno($postObj);
-		// 	$this->sendData($postObj);
-		// }
 	}
 
 }
