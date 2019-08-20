@@ -16,23 +16,25 @@ header("Content-type: text/html; charset=utf-8");
 // include 'db.class.php';
 // include 'jssdk.class.php';
 
-require_once __ROOT__ . '/core/lib/db.class.php';
+include __ROOT__ . '/core/lib/db.class.php';
 
-$db = new db();
-// $jssdk = new JSSDK("wxfcacdc74295aabe5", "2465bb511cc5f5da62038e58841e78eb");
+var_dump(__ROOT__);
 
-// 每过半个小时推送一次
-// 查询所有设置到这个时间的用户，
+// $db = new db();
+// // $jssdk = new JSSDK("wxfcacdc74295aabe5", "2465bb511cc5f5da62038e58841e78eb");
 
-$time = date('H/i', time());
-echo $time;
+// // 每过半个小时推送一次
+// // 查询所有设置到这个时间的用户，
 
-$sql = 'select * from bird_order';
-$res = $db->dql($sql);
+// $time = date('H/i', time());
+// echo $time;
 
-$data = array();
-while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
-	array_push($data, $row);
-}
+// $sql = 'select * from bird_order';
+// $res = $db->dql($sql);
 
-var_dump($data);
+// $data = array();
+// while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
+// 	array_push($data, $row);
+// }
+
+// var_dump($data);
