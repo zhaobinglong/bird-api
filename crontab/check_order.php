@@ -27,7 +27,14 @@ $db = new db();
 // $time = date('H/i', time());
 // echo $time;
 
-$sql = 'select * from bird_order';
+
+list($msec, $sec) = explode(' ', microtime());
+$msectime_now = (float) sprintf('%.0f', (floatval($msec) + floatval($sec)) * 1000)
+
+$msectime_before = $msectime_now - 2*60*60*1000
+
+$sql = 'select * from bird_order where 	flowintime >' . $msectime_before ;
+var_dump($sql);
 $res = $db->dql($sql);
 
 $data = array();
