@@ -594,8 +594,9 @@ class bird {
 		$res = $this->db->dql($sql);
 
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
-			$xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $row->exchangeNo);
-			var_dump($xml);
+			var_dump($row);
+			// $xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $row->exchangeNo);
+			// var_dump($xml);
 			// 	$url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Cbc';
 			// 	$curl = curl_init();
 			// 	$header[] = "Content-type: text/xml";
