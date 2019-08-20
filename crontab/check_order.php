@@ -16,11 +16,9 @@ header("Content-type: text/html; charset=utf-8");
 // include 'db.class.php';
 // include 'jssdk.class.php';
 
-include __ROOT__ . '/core/lib/db.class.php';
+include '../core/lib/db.class.php';
 
-echo __DIR__ . '/core/lib/db.class.php';
-
-// $db = new db();
+$db = new db();
 // // $jssdk = new JSSDK("wxfcacdc74295aabe5", "2465bb511cc5f5da62038e58841e78eb");
 
 // // 每过半个小时推送一次
@@ -29,12 +27,12 @@ echo __DIR__ . '/core/lib/db.class.php';
 // $time = date('H/i', time());
 // echo $time;
 
-// $sql = 'select * from bird_order';
-// $res = $db->dql($sql);
+$sql = 'select * from bird_order';
+$res = $db->dql($sql);
 
-// $data = array();
-// while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
-// 	array_push($data, $row);
-// }
+$data = array();
+while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
+	array_push($data, $row);
+}
 
-// var_dump($data);
+var_dump($data);
