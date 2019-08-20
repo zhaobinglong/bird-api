@@ -25,8 +25,8 @@ for ($row = 5; $row <= $highestRow; $row++) {
 	// 插入HR销售人员
 	// $sql = "insert into bird_seller(`user_name`,`user_code`,`company_code`, `company_name`, `sub_company_code`, `sub_company_name`, `team_code`, `team_name`, `identify_number`,  `bank_code`, `bank_name`, `phone_number`, `user_classify`) value('" . $row_arr[1] . "','" . $row_arr[2] . "','" . $row_arr[3] . "','" . $row_arr[4] . "','" . $row_arr[5] . "','" . $row_arr[6] . "','" . $row_arr[7] . "','" . $row_arr[8] . "','" . $row_arr[9] . "','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "', 'HR销售人员')";
 
-	// $sql = "insert into bird_company(``user_name`, `user_code`,`company_code`, `company_name`, `sub_company_code`, `sub_company_name`,``) value('" . $row_arr[0] . "','" . $row_arr[1] . "','" . $row_arr[2] . "','" . $row_arr[3] . "')";
-	// var_dump($sql);
-	// $db->dql($sql);
+	$sql = "insert into bird_seller(`user_code`,`team_name`,`user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('13158918'," . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "',,'" . $row_arr[15] . "','非HR销售人员')";
+	var_dump($sql);
+	$db->dql($sql);
 	$res_arr[] = $row_arr;
 }
