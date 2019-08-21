@@ -5,7 +5,9 @@ require_once __DIR__ . '/PHPExcel-1.8/Classes/PHPExcel/IOFactory.php';
 include __DIR__ . '/core/lib/db.class.php';
 $db = new db();
 
-$filename = __DIR__ . '/doc/5.xlsx';
+$excel = $_GET['page'];
+
+$filename = __DIR__ . '/doc/' . $xecel . '.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
 
 $sheet = $objPHPExcelReader->getSheet(1); // 读取第一个工作表(编号从 0 开始)
@@ -27,18 +29,19 @@ for ($row = 5; $row <= $highestRow; $row++) {
 
 		$row_arr[] = $val;
 	}
-	// var_dump($row_arr);
-	// echo "<br/>";
+	var_dump($row_arr);
+	echo "<br/>";
+
 	// 插入HR销售人员
 	// $sql = "insert into bird_seller(`user_name`,`user_code`,`company_code`, `company_name`, `sub_company_code`, `sub_company_name`, `team_code`, `team_name`, `identify_number`,  `bank_code`, `bank_name`, `phone_number`, `user_classify`) value('" . $row_arr[1] . "','" . $row_arr[2] . "','" . $row_arr[3] . "','" . $row_arr[4] . "','" . $row_arr[5] . "','" . $row_arr[6] . "','" . $row_arr[7] . "','" . $row_arr[8] . "','" . $row_arr[9] . "','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "', 'HR销售人员')";
 	// $res = $db->dql($sql);
 	// var_dump($res);
 
 	// 插入非HR销售人员
-	$sql = "insert into bird_seller(`user_code`,`user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('" . $row_arr[2] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "','" . $row_arr[15] . "','非HR销售人员')";
-	$res = $db->dql($sql);
-	var_dump($res);
-	echo "<br/>";
+	// $sql = "insert into bird_seller(`user_code`,`user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('" . $row_arr[2] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "','" . $row_arr[15] . "','非HR销售人员')";
+	// $res = $db->dql($sql);
+	// var_dump($res);
+	// echo "<br/>";
 
 	// $res_arr[] = $row_arr;
 }
