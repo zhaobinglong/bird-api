@@ -17,7 +17,7 @@ $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N
 $res_arr = array();
 for ($row = 5; $row <= $highestRow; $row++) {
 	$row_arr = array();
-	for ($column = 0; $arr[$column] != 'M'; $column++) {
+	for ($column = 0; $arr[$column] != 'N'; $column++) {
 		$val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
 		$row_arr[] = $val;
 	}
