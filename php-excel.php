@@ -15,7 +15,7 @@ $highestColumn = $sheet->getHighestColumn(); // 取得总列数
 $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
 // 一次读取一列
 $res_arr = array();
-for ($row = 5; $row <= $highestRow; $row++) {
+for ($row = 4; $row <= $highestRow; $row++) {
 	$row_arr = array();
 	for ($column = 0; $arr[$column] != 'N'; $column++) {
 		$val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
@@ -29,6 +29,6 @@ for ($row = 5; $row <= $highestRow; $row++) {
 	// $sql = "insert into bird_seller(`user_code`,`team_name`,`user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('13158918','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "','" . $row_arr[15] . "','非HR销售人员')";
 	// var_dump($sql);
 	// $res = $db->dql($sql);
-	var_dump($res);
+	// var_dump($res);
 	// $res_arr[] = $row_arr;
 }
