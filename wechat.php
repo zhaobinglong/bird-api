@@ -110,13 +110,20 @@ class App {
 			// 拥有类文件，调用类文件
 		} elseif (isset($_GET['ctrl'])) {
 			$ctrl = $_GET['ctrl'];
-			$action = $_GET['action'];
 
-			// 加载这个类文件 如果没有这个类文件，这里要有提示
-			include __DIR__ . '/core/lib/' . $ctrl . '.php';
-			$class = new $ctrl($this->db);
-			$class->$action($_GET);
+			if ($_GET['action']) {
+				$action = $_GET['action'];
+				include __DIR__ . '/core/lib/' . $ctrl . '.php';
+				$class = new $ctrl($this->db);
+				$class->$action($_GET);
+			} else {
+				// 正常情况下，action一定存在
+				// 但是crontab通过url的方式，只能识别第一个参数，无法是被第二个参数
+				include __DIR__ . '/core/lib/' . $ctrl . '.php';
+				$class = new $ctrl($this->db);
+				$class->crontab();
 
+			}
 			// 没有类文件，默认为微信的事件推送
 		} else {
 			include __DIR__ . '/core/lib/weixin.php';
