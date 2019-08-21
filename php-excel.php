@@ -19,6 +19,12 @@ for ($row = 4; $row <= $highestRow; $row++) {
 	$row_arr = array();
 	for ($column = 0; $arr[$column] != 'N'; $column++) {
 		$val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+
+		// 将object格式转换为字符串格式
+		if (is_object($val)) {
+			$val = $val->__toString();
+		}
+
 		$row_arr[] = $val;
 	}
 	var_dump($row_arr);
