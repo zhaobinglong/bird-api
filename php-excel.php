@@ -7,11 +7,11 @@ $db = new db();
 
 $excel = $_GET['page'];
 
-$filename = __DIR__ . '/doc/' . $xecel . '.xlsx';
+$filename = __DIR__ . '/doc/' . $excel . '.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
 
 $sheet = $objPHPExcelReader->getSheet(1); // 读取第一个工作表(编号从 0 开始)
-$highestRow = $sheet->getHighestRow() - 33; // 取得总行数
+$highestRow = $sheet->getHighestRow(); // 取得总行数
 $highestColumn = $sheet->getHighestColumn(); // 取得总列数
 
 $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
