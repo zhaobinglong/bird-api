@@ -9,7 +9,7 @@ $filename = __DIR__ . '/doc/5.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
 
 $sheet = $objPHPExcelReader->getSheet(1); // 读取第一个工作表(编号从 0 开始)
-$highestRow = $sheet->getHighestRow() - 20; // 取得总行数
+$highestRow = $sheet->getHighestRow() - 30; // 取得总行数
 $highestColumn = $sheet->getHighestColumn(); // 取得总列数
 
 $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
@@ -28,6 +28,7 @@ for ($row = 5; $row <= $highestRow; $row++) {
 		$row_arr[] = $val;
 	}
 	var_dump($row_arr);
+	echo "<br/>";
 	// 插入HR销售人员
 	// $sql = "insert into bird_seller(`user_name`,`user_code`,`company_code`, `company_name`, `sub_company_code`, `sub_company_name`, `team_code`, `team_name`, `identify_number`,  `bank_code`, `bank_name`, `phone_number`, `user_classify`) value('" . $row_arr[1] . "','" . $row_arr[2] . "','" . $row_arr[3] . "','" . $row_arr[4] . "','" . $row_arr[5] . "','" . $row_arr[6] . "','" . $row_arr[7] . "','" . $row_arr[8] . "','" . $row_arr[9] . "','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "', 'HR销售人员')";
 
