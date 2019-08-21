@@ -111,7 +111,7 @@ class App {
 		} elseif (isset($_GET['ctrl'])) {
 			$ctrl = $_GET['ctrl'];
 
-			if ($_GET['action']) {
+			if (isset($_GET['action'])) {
 				$action = $_GET['action'];
 				include __DIR__ . '/core/lib/' . $ctrl . '.php';
 				$class = new $ctrl($this->db);
