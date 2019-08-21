@@ -8,7 +8,7 @@ $db = new db();
 $filename = __DIR__ . '/doc/3.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
 
-$sheet = $objPHPExcelReader->getSheet(1); // 读取第一个工作表(编号从 0 开始)
+$sheet = $objPHPExcelReader->getSheet(0); // 读取第一个工作表(编号从 0 开始)
 $highestRow = $sheet->getHighestRow(); // 取得总行数
 $highestColumn = $sheet->getHighestColumn(); // 取得总列数
 
@@ -17,7 +17,7 @@ $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N
 $res_arr = array();
 for ($row = 5; $row <= $highestRow; $row++) {
 	$row_arr = array();
-	for ($column = 0; $arr[$column] != 'Q'; $column++) {
+	for ($column = 0; $arr[$column] != 'M'; $column++) {
 		$val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
 		$row_arr[] = $val;
 	}
@@ -25,9 +25,10 @@ for ($row = 5; $row <= $highestRow; $row++) {
 	// 插入HR销售人员
 	// $sql = "insert into bird_seller(`user_name`,`user_code`,`company_code`, `company_name`, `sub_company_code`, `sub_company_name`, `team_code`, `team_name`, `identify_number`,  `bank_code`, `bank_name`, `phone_number`, `user_classify`) value('" . $row_arr[1] . "','" . $row_arr[2] . "','" . $row_arr[3] . "','" . $row_arr[4] . "','" . $row_arr[5] . "','" . $row_arr[6] . "','" . $row_arr[7] . "','" . $row_arr[8] . "','" . $row_arr[9] . "','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "', 'HR销售人员')";
 
-	$sql = "insert into bird_seller(`user_code`,`team_name`,`user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('13158918','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "','" . $row_arr[15] . "','非HR销售人员')";
-	var_dump($sql);
-	$res = $db->dql($sql);
+	// 插入非HR销售人员
+	// $sql = "insert into bird_seller(`user_code`,`team_name`,`user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('13158918','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "','" . $row_arr[15] . "','非HR销售人员')";
+	// var_dump($sql);
+	// $res = $db->dql($sql);
 	var_dump($res);
 	// $res_arr[] = $row_arr;
 }
