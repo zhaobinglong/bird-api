@@ -51,7 +51,7 @@ for ($row = 5; $row <= $highestRow; $row++) {
 		echo "<br/>";
 	} elseif ($action == '4') {
 		// 通过手机号码更改销售人员的归属代码
-		$sql = "update bird_seller set team_code='" . $row_arr[7] . "' where phone_number='" . $row_arr[15] . "'";
+		$sql = "update bird_seller set team_code='45010814' where phone_number='" . $row_arr[15] . "'";
 		$res = $db->dql($sql);
 		var_dump($res);
 		echo "<br/>";
