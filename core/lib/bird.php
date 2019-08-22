@@ -599,7 +599,9 @@ class bird {
 		}
 
 		for ($i = 0; $i < count($data); $i++) {
-
+			if (empty($data[$i]['exchangeNo'])) {
+				continue;
+			}
 			$xml = sprintf($this->check_tpl, $this->user, $this->password, $this->server_version, $this->sender, $this->uuid, $this->getMsecTime(), $data[$i]['exchangeNo']);
 
 			$url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Cbc';
