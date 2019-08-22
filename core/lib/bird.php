@@ -619,7 +619,8 @@ class bird {
 			} else {
 				$postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
 				$this->savePolicyno($postObj);
-				var_dump($postObj);
+				print_r($postObj);
+				echo "<br/>";
 			}
 		}
 	}
