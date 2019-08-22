@@ -5,9 +5,9 @@ require_once __DIR__ . '/PHPExcel-1.8/Classes/PHPExcel/IOFactory.php';
 include __DIR__ . '/core/lib/db.class.php';
 $db = new db();
 
-$excel = $_GET['page'];
-$sheet = $_GET['sheet'];
-$action = $_GET['action'];
+$excel = $_GET['page']; // 要操作的数据表
+$sheet = $_GET['sheet']; // 第几张表
+$action = $_GET['action']; // 动作
 
 $filename = __DIR__ . '/doc/' . $excel . '.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
@@ -31,9 +31,9 @@ for ($row = 5; $row <= $highestRow; $row++) {
 
 		$row_arr[] = $val;
 	}
-	// if (empty($row_arr[1])) {
-	// 	continue;
-	// }
+	if (empty($row_arr[1])) {
+		continue;
+	}
 
 	if ($action == '1') {
 		print_r($row_arr);
@@ -51,7 +51,7 @@ for ($row = 5; $row <= $highestRow; $row++) {
 		echo "<br/>";
 	} elseif ($action == '4') {
 		// 通过手机号码更改销售人员的归属代码
-		$sql = "update bird_seller set team_code='45010814' where phone_number='" . $row_arr[15] . "'";
+		$sql = "update bird_seller set team_code='" . $row_arr[7] . "' where phone_number='" . $row_arr[15] . "'";
 		$res = $db->dql($sql);
 		var_dump($res);
 		echo "<br/>";
