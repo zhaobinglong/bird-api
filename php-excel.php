@@ -18,7 +18,7 @@ $highestColumn = $sheet->getHighestColumn(); // 取得总列数
 $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
 // 一次读取一列
 $res_arr = array();
-for ($row = 5; $row <= $highestRow; $row++) {
+for ($row = 4; $row <= $highestRow; $row++) {
 	$row_arr = array();
 	for ($column = 0; $arr[$column] != 'Q'; $column++) {
 		$val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
@@ -29,6 +29,9 @@ for ($row = 5; $row <= $highestRow; $row++) {
 		}
 
 		$row_arr[] = $val;
+	}
+	if (empty($row_arr[1])) {
+		continue;
 	}
 	var_dump($row_arr);
 	echo "<br/>";
