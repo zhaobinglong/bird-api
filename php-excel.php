@@ -31,9 +31,9 @@ for ($row = 5; $row <= $highestRow; $row++) {
 
 		$row_arr[] = $val;
 	}
-	if (empty($row_arr[1])) {
-		continue;
-	}
+	// if (empty($row_arr[1])) {
+	// 	continue;
+	// }
 
 	if ($action == '1') {
 		print_r($row_arr);
