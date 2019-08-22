@@ -33,7 +33,7 @@ for ($row = 5; $row <= $highestRow; $row++) {
 	if (empty($row_arr[1])) {
 		continue;
 	}
-	var_dump($row_arr);
+	print_r($row_arr);
 	echo "<br/>";
 
 	// 插入HR销售人员
