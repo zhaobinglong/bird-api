@@ -6,11 +6,12 @@ include __DIR__ . '/core/lib/db.class.php';
 $db = new db();
 
 $excel = $_GET['page'];
+$sheet = $_GET['sheet'];
 
 $filename = __DIR__ . '/doc/' . $excel . '.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
 
-$sheet = $objPHPExcelReader->getSheet(1); // 读取第一个工作表(编号从 0 开始)
+$sheet = $objPHPExcelReader->getSheet($sheet); // 读取第一个工作表(编号从 0 开始)
 $highestRow = $sheet->getHighestRow(); // 取得总行数
 $highestColumn = $sheet->getHighestColumn(); // 取得总列数
 
