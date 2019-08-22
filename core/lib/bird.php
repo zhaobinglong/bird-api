@@ -56,7 +56,7 @@ class bird {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$mypost = json_decode($rws_post);
 
-		$sql = "select * from bird_seller where phone_number='" . $mypost->phone_number . "' limit 1";
+		$sql = "select * from bird_seller where phone_number='" . $mypost->phone_number . "' order by id desc limit 1";
 		$res = mysql_fetch_array($this->db->dql($sql), MYSQL_ASSOC);
 		$this->sendData($res);
 	}
