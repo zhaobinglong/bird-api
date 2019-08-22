@@ -58,7 +58,7 @@ class bird {
 
 		$sql = "select * from bird_seller where phone_number='" . $mypost->phone_number . "' order by id desc limit 1";
 		$res = mysql_fetch_array($this->db->dql($sql), MYSQL_ASSOC);
-		$this->sendData($res);
+		$this->sendData($res, $sql);
 	}
 
 	// 通过HR号码获取正式HR销售的信息
