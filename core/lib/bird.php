@@ -71,6 +71,17 @@ class bird {
 		$this->sendData($res);
 	}
 
+	// 获取所有的销售人员
+	public function getSeller() {
+		$sql = "select * from bird_seller ";
+		$res = $this->db->dql($sql);
+		$data = array();
+		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
+			array_push($data, $row);
+		}
+		$this->sendData($data);
+	}
+
 	// 获取全部的公司信息
 	public function getCompanys() {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
