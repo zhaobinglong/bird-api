@@ -33,7 +33,7 @@ for ($row = $start; $row <= $highestRow; $row++) {
 
 		$row_arr[] = $val;
 	}
-	if (empty($row_arr[1])) {
+	if (empty($row_arr[2])) {
 		continue;
 	}
 
