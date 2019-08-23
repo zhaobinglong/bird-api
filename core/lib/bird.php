@@ -599,7 +599,7 @@ class bird {
 	public function crontab() {
 		$msectime_now = $this->getMsecTime();
 
-		$msectime_before = $msectime_now - 12 * 60 * 60 * 1000;
+		$msectime_before = $msectime_now - 60 * 60 * 1000;
 
 		$sql = 'select * from bird_order where 	flowintime >' . $msectime_before;
 		$res = $this->db->dql($sql);
