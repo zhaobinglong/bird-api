@@ -9,6 +9,7 @@ $excel = $_GET['page']; // 要操作的数据表
 $sheet = $_GET['sheet']; // 第几张表
 $action = $_GET['action']; // 动作 插入还是查看
 $end_column = $_GET['column']; // 读取到第几列
+$start = $_GET['start']; // 从第几行开始读取
 
 $filename = __DIR__ . '/doc/' . $excel . '.xlsx';
 $objPHPExcelReader = PHPExcel_IOFactory::load($filename);
@@ -20,7 +21,7 @@ $highestColumn = $sheet->getHighestColumn(); // 取得总列数
 $arr = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
 // 一次读取一列
 $res_arr = array();
-for ($row = 5; $row <= $highestRow; $row++) {
+for ($row = $start; $row <= $highestRow; $row++) {
 	$row_arr = array();
 	for ($column = 0; $arr[$column] != $end_column; $column++) {
 		$val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
