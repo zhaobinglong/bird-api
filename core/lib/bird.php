@@ -556,12 +556,16 @@ class bird {
 		if ($res == '进入熔断器了') {
 			$this->sendData($res);
 		} else {
-			$postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_ERR_NONE);
-			// 下单成功后才开始保存订单信息
-			if ($postObj->responsehead->error_message == 'Success') {
-				$this->updateOrder($this->uuid, $postObj);
+			try {
+				$postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_ERR_NONE);
+				// 下单成功后才开始保存订单信息
+				if ($postObj->responsehead->error_message == 'Success') {
+					$this->updateOrder($this->uuid, $postObj);
+				}
+				$this->sendData($postObj);
+			} catch (Exception $e) {
+				$this->sendData($e);
 			}
-			$this->sendData($postObj);
 		}
 	}
 
