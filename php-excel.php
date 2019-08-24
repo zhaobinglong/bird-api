@@ -47,7 +47,7 @@ for ($row = $start; $row <= $highestRow; $row++) {
 		var_dump($res);
 	} elseif ($action == '3') {
 		// 插入非HR销售人员
-		$sql = "insert into bird_seller(`user_code`,`team_code`, `user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('" . $row_arr[2] . "','" . $row_arr[7] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "','" . $row_arr[15] . "','非HR销售人员')";
+		$sql = "insert into bird_seller(`user_code`,`team_code`, `user_name`, `identify_number`, `bank_code`, `bank_name`, `phone_number`,`user_classify`) value('" . $row_arr[2] . "','" . $row_arr[7] . "','" . $row_arr[10] . "','" . $row_arr[11] . "','" . $row_arr[12] . "','" . $row_arr[13] . "','" . $row_arr[14] . "','非HR销售人员')";
 		$res = $db->dql($sql);
 		var_dump($res);
 		echo "<br/>";
