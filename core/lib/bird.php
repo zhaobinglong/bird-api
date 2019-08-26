@@ -105,6 +105,11 @@ class bird {
 
 		$sql = "select phone_number from bird_seller where phone_number='" . $mypost->phone_number . "'";
 		$res = mysql_fetch_array($this->db->dql($sql), MYSQL_ASSOC);
+		if (isset($res)) {
+			$this->sendData('ok');
+		} else {
+			$this->sendData('error');
+		}
 		// if (isset($mypost->id)) {
 		// 	$sql = "update bird_seller set bank_code='" . $mypost->bank_code . "',bank_name='" . $mypost->bank_name . "',company_name='" . $mypost->company_name . "',company_code='" . $mypost->company_code . "',sub_company_code='" . $mypost->sub_company_code . "',sub_company_name='" . $mypost->sub_company_name . "',team_code='" . $mypost->team_code . "',team_name='" . $mypost->team_name . "',team_type='" . $mypost->team_type . "',user_code='" . $mypost->user_code . "', user_name='" . $mypost->user_name . "', identify_number='" . $mypost->identify_number . "', user_classify='" . $mypost->user_classify . "', phone_number='" . $mypost->phone_number . "' where id='" . $mypost->id . "'";
 		// } else {
@@ -112,7 +117,7 @@ class bird {
 		// 	$sql = "insert into bird_seller(bank_code, bank_name, company_name, company_code, sub_company_code, sub_company_name, team_code, team_name, team_type, user_code, user_trans_code, user_name, user_param, user_type, user_post, user_office, identify_number, phone_number, user_classify, user_from) value('" . $mypost->bank_code . "','" . $mypost->bank_name . "','" . $mypost->company_name . "','" . $mypost->company_code . "','" . $mypost->sub_company_code . "','" . $mypost->sub_company_name . "','" . $mypost->team_code . "','" . $mypost->team_name . "','" . $mypost->team_type . "','" . $mypost->user_code . "','" . $mypost->user_trans_code . "','" . $mypost->user_name . "','" . $mypost->user_param . "','" . $mypost->user_type . "','" . $mypost->user_post . "','" . $mypost->user_office . "','" . $mypost->identify_number . "','" . $mypost->phone_number . "','" . $mypost->user_classify . "','" . $mypost->user_from . "')";
 		// }
 		// $res = $this->db->dql($sql);
-		$this->sendData($res);
+
 	}
 
 	// 销售提交注册信息
