@@ -105,7 +105,7 @@ class bird {
 
 		$sql = "select phone_number from bird_seller where phone_number='" . $mypost->phone_number . "'";
 		$res = mysql_fetch_array($this->db->dql($sql), MYSQL_ASSOC);
-		if (isset($res)) {
+		if (isset($res->phone_number)) {
 			$this->sendData('ok');
 		} else {
 			$this->sendData('error');
