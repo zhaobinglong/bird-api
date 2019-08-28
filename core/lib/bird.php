@@ -621,8 +621,7 @@ class bird {
 	public function getAllOrders() {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$mypost = json_decode($rws_post);
-		$sql = "select o.id, o.planCode,o.handlerCode,o.insuredInfos,o.policyno,o.phone,o.channel,o.
-flowintime, s.user_name,s.user_code,s.team_name from bird_order as o left join bird_seller as s on o.channel=s.identify_number  where o.policyno!="" order by o.flowintime desc";
+		$sql = "select * from bird_order  order by flowintime desc";
 		$res = $this->db->dql($sql);
 		$data = array();
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
