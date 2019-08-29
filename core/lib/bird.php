@@ -155,6 +155,13 @@ class bird {
 		// }
 	}
 
+	public function loginout() {
+		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
+		$mypost = json_decode($rws_post);
+
+		$this->sendData(true);
+	}
+
 	// 调用腾讯云官方接口发送短信
 	public function sendSMS() {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
