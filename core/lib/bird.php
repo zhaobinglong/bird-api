@@ -368,63 +368,13 @@ class bird {
 
 	}
 
+	// 测试订单插入
 	public function test() {
-		$xml = "<?xml version='1.0' encoding='UTF-8'?>
-<ApplyInfo>
-  <requesthead>
-    <user>GC001</user>
-    <password>123</password>
-    <server_version>00000000</server_version>
-    <sender>002</sender>
-    <uuid>0240dldv-awwl-bqtw-8jwd-aflpreczepai</uuid>
-    <flowintime>1564560442016</flowintime>
-  </requesthead>
-  <policyibofo>
-    <planCode>JCV4500001</planCode>
-    <comCode>45010200</comCode>
-    <handler1Code>45655134</handler1Code>
-    <makeCode>45010200</makeCode>
-    <agencyCode>000041100188</agencyCode>
-    <handlerCode>45655134</handlerCode>
-    <operatorCode>45655134</operatorCode>
-    <insuredInfos>
-      <InsuredInfo>
-        <insureType>1</insureType>
-        <insuredName>柯南</insuredName>
-        <identifyType>01</identifyType>
-        <identifyNumber>141031199210140034</identifyNumber>
-        <phoneNumber>15101056160</phoneNumber>
-        <postAddress>建国门外大街</postAddress>
-        <banjiName/>
-      </InsuredInfo>
-      <InsuredInfo>
-        <insureType>2</insureType>
-        <insuredName>小兰</insuredName>
-        <identifyType>01</identifyType>
-        <identifyNumber>141031199210140035</identifyNumber>
-        <phoneNumber>15101056160</phoneNumber>
-        <postAddress>建国门外大街</postAddress>
-        <banjiName>三年二班</banjiName>
-      </InsuredInfo>
-    </insuredInfos>
-  </policyibofo>
-</ApplyInfo>";
+		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
+		$mypost = json_decode($rws_post);
 
-		$url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Cbc';
-		$curl = curl_init();
-		$header[] = "Content-type: text/xml";
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-		$res = curl_exec($curl);
-		curl_close($curl);
-		$postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
-		var_dump($postObj);
-
+		$res = $this->saveOrder($mypost);
+		echo $res;
 	}
 
 	/**
@@ -603,6 +553,7 @@ class bird {
 		);
 		$sql = "insert into bird_order(user, password, server_version, sender, uuid, flowintime, planCode, comCode, makeCode, agencyCode, handlerCode, handler1Code, operatorCode, insuredInfos, phone, channel) value('" . $this->user . "','" . $this->password . "','" . $this->server_version . "','" . $this->sender . "','" . $this->uuid . "','" . $this->flowintime . "','" . $data->planCode . "','" . $data->comCode . "','" . $data->makeCode . "','" . $this->agencyCode . "','" . $data->handlerCode . "','" . $data->handler1Code . "','" . $data->operatorCode . "','" . serialize($insuredInfos) . "','" . $data->parent->phoneNumber . "', '" . $data->channel . "')";
 		$this->db->dql($sql);
+		return $sql;
 	}
 
 	// 保存下单编号和支付编号，这里还没有保单号，因为保单号必须付款才有
