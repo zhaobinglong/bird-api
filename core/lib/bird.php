@@ -653,7 +653,12 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 	public function createImg($data, $codeImg) {
 		$backImg = $data['bk'];
 		// 添加二维码
-		$this->addPic($backImg, $codeImg, 150, 150, 285, 510, $data['phone']);
+		// 背景图宽度750， /2=375
+		// 二维码宽度150。 /2=75   375-75=300
+
+		// 背景图高度1061
+		// 二维码高度150
+		$this->addPic($backImg, $codeImg, 150, 150, 300, 900, $data['phone']);
 
 	}
 
