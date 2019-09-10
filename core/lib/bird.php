@@ -647,7 +647,7 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		$qrcode = 'http://qr.liantu.com/api.php?&w=200&text=' . $url;
 
 		$newImg = $this->createImg($data, $qrcode);
-		// echo "<img src=" . $qrcode . " />";
+		$this->sendData($newImg);
 	}
 
 	public function createImg($data, $codeImg) {
@@ -658,9 +658,7 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 
 		// 背景图高度1061
 		// 二维码高度150
-		$img = $this->addPic($backImg, $codeImg, 150, 150, 300, 880, $data['phone']);
-
-		echo $img;
+		return $this->addPic($backImg, $codeImg, 150, 150, 300, 880, $data['phone']);
 	}
 
 	public function addPic($path_base, $path_logo, $imgWidth, $imgHeight, $dst_x, $dst_y, $new) {
