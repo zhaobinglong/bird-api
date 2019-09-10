@@ -639,36 +639,40 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		$data = [
 			'bk' => 'http://guichaokeji.com/bird-api/doc/qrcode_bk_1.jpeg',
 			'param1' => 'xx',
+			'phone' => $params['phone'],
 
 		];
 
 		$url = urlencode('http://guichaokeji.com/bird/index.html#/buy/' . $params['phone']);
 		$qrcode = 'http://qr.liantu.com/api.php?&w=200&text=' . $url;
 
-		// $newImg = $this->createImg($qrcode);
-		echo "<img src=" . $qrcode . " />";
+		$newImg = $this->createImg($data, $qrcode);
+		// echo "<img src=" . $qrcode . " />";
 	}
 
-	function createImg($codeImg) {
-		$backImg = "http://guichaokeji.com/bird-api/doc/qrcode_bk_1.jpeg";
-		// $new =  $data['new_img'];
-		// $goods_img = $data['goods_img'];
+	public function createImg($data, $codeImg) {
+		$backImg = $data['bk'];
 		// 添加二维码
-		$this->addPic($backImg, $codeImg, 150, 150, 285, 510, $backImg);
-		// 添加产品
-		// addPic($new,$goods_img,400,400,25,100,$new);
+		$this->addPic($backImg, $codeImg, 150, 150, 285, 510, $data['phone']);
 
-		// 添加产品描述，对描述进行分行
-		// $theTitle = cn_row_substr($data['title'],2,11);
-		// addWord($theTitle[1],25,540,16,'black',$new);
-		// addWord($theTitle[2],25,565,16,'black',$new);
+	}
 
-		// // 添加价格1
-		// addWord('特价'.$data['price_market'],25,610,24,'red',$new);
-		// // 添加价格2
-		// addWord('原价'.$data['price_member'],25,640,18,'black',$new);
+	public function addPic($path_base, $path_logo, $imgWidth, $imgHeight, $dst_x, $dst_y, $new) {
 
-		return $new;
+		$image_base = $this->ImgInfo($path_base);
+		$image_logo = $this->ImgInfo($path_logo);
+		// var_dump($image_base);
+
+		// 将image_base和image_logo合并在一起
+		imagecopyresampled($image_base, $image_logo, $dst_x, $dst_y, 0, 0, $imgWidth, $imgHeight, imagesx($image_logo), imagesy($image_logo));
+
+		// 生成一个合并后的新图$new
+		imagejpeg($image_base, '../../images/' . $new . 'jpeg');
+		// 载入新图像资源
+		// $new_pic = imagecreatefromjpeg($new);
+		// // 生成写入文字的的新图
+		// imagejpeg($new_pic, $new);
+
 	}
 
 	// 获取图片信息
