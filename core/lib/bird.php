@@ -658,26 +658,23 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 
 		// 背景图高度1061
 		// 二维码高度150
-		$this->addPic($backImg, $codeImg, 150, 150, 300, 880, $data['phone']);
+		$img = $this->addPic($backImg, $codeImg, 150, 150, 300, 880, $data['phone']);
 
+		echo $img;
 	}
 
 	public function addPic($path_base, $path_logo, $imgWidth, $imgHeight, $dst_x, $dst_y, $new) {
 
 		$image_base = $this->ImgInfo($path_base);
 		$image_logo = $this->ImgInfo($path_logo);
-		// var_dump($image_base);
 
 		// 将image_base和image_logo合并在一起
 		imagecopyresampled($image_base, $image_logo, $dst_x, $dst_y, 0, 0, $imgWidth, $imgHeight, imagesx($image_logo), imagesy($image_logo));
 
 		// 生成一个合并后的新图$new
-		imagejpeg($image_base, __ROOT__ . '/images/' . $new . '.jpeg');
-		// 载入新图像资源
-		// $new_pic = imagecreatefromjpeg($new);
-		// // 生成写入文字的的新图
-		// imagejpeg($new_pic, $new);
-
+		$path = __ROOT__ . '/images/' . $new . '.jpeg';
+		imagejpeg($image_base, $path);
+		return 'http://guichaokeji.com/bird-api/images/' . $new . '.jpeg';
 	}
 
 	// 获取图片信息
