@@ -633,6 +633,44 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		}
 	}
 
+	// 获取分享图
+	public function getShareImg($params) {
+
+		$data = [
+			'bk' => 'http://guichaokeji.com/bird-api/doc/qrcode_bk_1.jpeg',
+			'param1' => 'xx',
+
+		];
+
+		$url = urlencode('http://guichaokeji.com/bird/index.html#/buy/' . $params['phone']);
+		$qrcode = 'http://qr.liantu.com/api.php?&w=200&text=' . $url;
+
+		// $newImg = $this->createImg($qrcode);
+		echo "<img src=" . $qrcode . " />";
+	}
+
+	function createImg($codeImg) {
+		$backImg = "http://guichaokeji.com/bird-api/doc/qrcode_bk_1.jpeg";
+		// $new =  $data['new_img'];
+		// $goods_img = $data['goods_img'];
+		// 添加二维码
+		$this->addPic($backImg, $codeImg, 150, 150, 285, 510, $backImg);
+		// 添加产品
+		// addPic($new,$goods_img,400,400,25,100,$new);
+
+		// 添加产品描述，对描述进行分行
+		// $theTitle = cn_row_substr($data['title'],2,11);
+		// addWord($theTitle[1],25,540,16,'black',$new);
+		// addWord($theTitle[2],25,565,16,'black',$new);
+
+		// // 添加价格1
+		// addWord('特价'.$data['price_market'],25,610,24,'red',$new);
+		// // 添加价格2
+		// addWord('原价'.$data['price_member'],25,640,18,'black',$new);
+
+		return $new;
+	}
+
 	// 获取图片信息
 	public function ImgInfo($img) {
 		if (preg_match('/http(s)?:\/\//', $img)) {
