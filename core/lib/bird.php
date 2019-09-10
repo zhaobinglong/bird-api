@@ -633,4 +633,67 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		}
 	}
 
+	// 获取图片信息
+	public function ImgInfo($img) {
+		if (preg_match('/http(s)?:\/\//', $img)) {
+			$fileSuffix = $this->getNetworkImgType($img);
+		} else {
+			$fileSuffix = pathinfo($img, PATHINFO_EXTENSION);
+		}
+
+		if (!$fileSuffix) {
+			return false;
+		}
+
+		switch ($fileSuffix) {
+		case 'jpeg':
+			$theImage = @imagecreatefromjpeg($img);
+			break;
+		case 'jpg':
+			$theImage = @imagecreatefromjpeg($img);
+			break;
+		case 'png':
+			$theImage = @imagecreatefrompng($img);
+			break;
+		case 'gif':
+			$theImage = @imagecreatefromgif($img);
+			break;
+		default:
+			$theImage = @imagecreatefromstring(file_get_contents($img));
+			break;
+		}
+
+		return $theImage;
+	}
+
+	/**
+	 * 获取网络图片类型
+	 * @param $url  网络图片url,支持不带后缀名url
+	 * @return bool
+	 */
+	public function getNetworkImgType($url) {
+		$ch = curl_init(); //初始化curl
+		curl_setopt($ch, CURLOPT_URL, $url); //设置需要获取的URL
+		curl_setopt($ch, CURLOPT_NOBODY, 1);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3); //设置超时
+		curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); //支持https
+		curl_exec($ch); //执行curl会话
+		$http_code = curl_getinfo($ch); //获取curl连接资源句柄信息
+		curl_close($ch); //关闭资源连接
+		if ($http_code['http_code'] == 200) {
+			$theImgType = explode('/', $http_code['content_type']);
+
+			if ($theImgType[0] == 'image') {
+				return $theImgType[1];
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 }
