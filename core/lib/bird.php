@@ -667,7 +667,7 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		imagecopyresampled($image_base, $image_logo, $dst_x, $dst_y, 0, 0, $imgWidth, $imgHeight, imagesx($image_logo), imagesy($image_logo));
 
 		// 生成一个合并后的新图$new
-		imagejpeg($image_base, '../../images/' . $new . '.jpeg');
+		imagejpeg($image_base, __ROOT__ . '/images/' . $new . '.jpeg');
 		// 载入新图像资源
 		// $new_pic = imagecreatefromjpeg($new);
 		// // 生成写入文字的的新图
