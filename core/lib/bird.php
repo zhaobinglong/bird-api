@@ -658,8 +658,7 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 
 		// 背景图高度1980
 		// 背景图中二维码距离顶部100
-		// 二维码高度150    1980-100=1880
-		return $this->addPic($backImg, $codeImg, 150, 150, 445, 1880, $data['phone']);
+		return $this->addPic($backImg, $codeImg, 150, 150, 445, 100, $data['phone']);
 	}
 
 	public function addPic($path_base, $path_logo, $imgWidth, $imgHeight, $dst_x, $dst_y, $new) {
