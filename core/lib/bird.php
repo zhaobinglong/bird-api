@@ -670,9 +670,9 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		imagecopyresampled($image_base, $image_logo, $dst_x, $dst_y, 0, 0, $imgWidth, $imgHeight, imagesx($image_logo), imagesy($image_logo));
 
 		// 生成一个合并后的新图$new
-		$path = __ROOT__ . '/images/' . $new . '.jpeg';
+		$path = __ROOT__ . '/images/v2/' . $new . '.jpeg';
 		imagejpeg($image_base, $path);
-		return 'http://guichaokeji.com/bird-api/images/' . $new . '.jpeg';
+		return 'http://guichaokeji.com/bird-api/images/v2/' . $new . '.jpeg';
 	}
 
 	// 获取图片信息
