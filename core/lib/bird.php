@@ -644,7 +644,7 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		];
 
 		$url = urlencode('http://guichaokeji.com/bird/index.html#/buy/' . $params['phone']);
-		$qrcode = 'http://qr.liantu.com/api.php?&w=200&text=' . $url;
+		$qrcode = 'http://qr.liantu.com/api.php?&w=240&text=' . $url;
 
 		$newImg = $this->createImg($data, $qrcode);
 		$this->sendData($newImg);
@@ -654,11 +654,11 @@ flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bir
 		$backImg = $data['bk'];
 		// 添加二维码
 		// 背景图宽度1037， /2=519
-		// 二维码宽度200。 /2=100   519-100=419
+		// 二维码宽度240。 /2=120   519-120=400
 
 		// 背景图高度1980
 		// 背景图中二维码距离顶部200
-		return $this->addPic($backImg, $codeImg, 150, 150, 445, 200, $data['phone']);
+		return $this->addPic($backImg, $codeImg, 150, 150, 400, 200, $data['phone']);
 	}
 
 	public function addPic($path_base, $path_logo, $imgWidth, $imgHeight, $dst_x, $dst_y, $new) {
