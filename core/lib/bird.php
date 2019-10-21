@@ -580,7 +580,7 @@ class bird {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$mypost = json_decode($rws_post);
 		$sql = "select o.id, o.planCode,o.handlerCode,o.insuredInfos,o.policyno,o.phone,o.channel,o.
-flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name from bird_order as o left join bird_seller as s on o.channel=s.identify_number  where o.policyno!='' order by o.flowintime desc";
+flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name,s.company_name,s.sub_company_name from bird_order as o left join bird_seller as s on o.channel=s.identify_number  where o.policyno!='' order by o.flowintime desc";
 		$res = $this->db->dql($sql);
 		$data = array();
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
