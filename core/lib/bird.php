@@ -71,9 +71,9 @@ class bird {
 		$this->sendData($res);
 	}
 
-	// 获取所有的销售人员
+	// 获取所有的注册用户
 	public function getSeller() {
-		$sql = "select * from bird_seller ";
+		$sql = "select * from bird_seller where status!=0";
 		$res = $this->db->dql($sql);
 		$data = array();
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
