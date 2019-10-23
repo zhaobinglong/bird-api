@@ -66,7 +66,7 @@ class bird {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$mypost = json_decode($rws_post);
 
-		$sql = "select * from bird_seller where user_code='" . $mypost->user_code . "' and user_classify='HR销售人员' limit 1";
+		$sql = "select * from bird_seller where user_code='" . $mypost->user_code . "' and user_classify='HR销售人员' and user_status!='0' limit 1";
 		$res = mysql_fetch_array($this->db->dql($sql), MYSQL_ASSOC);
 		$this->sendData($res);
 	}
