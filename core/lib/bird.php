@@ -251,7 +251,7 @@ class bird {
 		$mypost = json_decode($rws_post);
 		$sql = '';
 		if (isset($mypost->id)) {
-			$sql = "update bird set cover_img='" . $mypost->cover_img . "',police_receipt='" . $mypost->police_receipt . "',name='" . $mypost->name . "',height='" . $mypost->height . "',birthday='" . $mypost->birthday . "',info='" . $mypost->info . "',lost_date='" . $mypost->lost_date . "',address='" . $mypost->address . "',remark='" . $mypost->remark . "',phone='" . $mypost->phone . "', create_time='" . time() . "' where id='" . $mypost->id . "'";
+			$sql = "update bird set cover_img='" . $mypost->cover_img . "',police_receipt='" . $mypost->police_receipt . "',name='" . $mypost->name . "',height='" . $mypost->height . "',birthday='" . $mypost->birthday . "',info='" . $mypost->info . "',lost_date='" . $mypost->lost_date . "',address='" . $mypost->address . "',remark='" . $mypost->remark . "',phone='" . $mypost->phone . "', status='" . $mypost->status . "' where id='" . $mypost->id . "'";
 		} else {
 			$sql = "insert into bird(cover_img,police_receipt,name,height,birthday,info,lost_date,address,phone,remark,create_time) value('" . $mypost->cover_img . "','" . $mypost->police_receipt . "','" . $mypost->name . "','" . $mypost->height . "','" . $mypost->birthday . "','" . $mypost->info . "','" . $mypost->lost_date . "','" . $mypost->address . "','" . $mypost->phone . "','" . $mypost->remark . "','" . time() . "')";
 		}
