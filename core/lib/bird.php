@@ -563,6 +563,15 @@ class bird {
 		$this->db->dql($sql);
 	}
 
+	// 后台管理员管理订单
+	public function manageOrder() {
+		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
+		$mypost = json_decode($rws_post);
+		$sql = "update bird_order set status='" . $mypost->status . "' where id='" . $mypost->id . "'";
+		$res = $this->db->dql($sql);
+		$this->sendData($res);
+	}
+
 	public function getOrders() {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$mypost = json_decode($rws_post);
@@ -581,7 +590,7 @@ class bird {
 		$rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
 		$mypost = json_decode($rws_post);
 		$sql = "select o.id, o.planCode,o.handlerCode,o.insuredInfos,o.policyno,o.phone,o.channel,o.
-flowintime, s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name,s.company_name,s.sub_company_name from bird_order as o left join bird_seller as s on o.channel=s.identify_number and s.user_status!='0'  where o.policyno!='' order by o.flowintime desc";
+flowintime,o.status,s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name,s.company_name,s.sub_company_name from bird_order as o left join bird_seller as s on o.channel=s.identify_number and s.user_status!='0'  where o.policyno!='' order by o.flowintime desc";
 		$res = $this->db->dql($sql);
 		$data = array();
 		while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
