@@ -779,9 +779,7 @@ flowintime,o.status,s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name,
         }
       }
     } else {
-      return false;
-      print '今天没人发布';
-    }
+        return '今天没人发布';
   }
 
   // 检查出险审核是否通过
