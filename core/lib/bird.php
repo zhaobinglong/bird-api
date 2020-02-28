@@ -747,5 +747,84 @@ flowintime,o.status,s.user_name,s.user_code,s.team_name,s.bank_code,s.bank_name,
 			return false;
 		}
 	}
+// 查找今天所有发布走失者
+  public function FindIDcare()
+  {
+    // 查找发布走失的人名字
+    $birdSql = 'select name,create_time from bird where status = ""';
+    $birdSql_a =  $this->db->dql($birdSql);
+    $birdNameArray = array();
+    // 获取当天凌晨时间戳
+    // print strtotime(date("Y-m-d"), time());
+    while ($birdRow = mysql_fetch_array($birdSql_a, MYSQL_NUM)) {
+      if (date('Y-m-d') == date("Y-m-d", $birdRow[1])) {
+        array_push($birdNameArray, $birdRow);
+      }
+    }
+    if (!empty($birdNameArray)) {
+      $birdOrderArray = array();
+      $birdOrderSql = 'select insuredInfos,uuid from bird_order where policyno is not null';
+      $birdOrderSql_a = $this->db->dql($birdOrderSql);
+      while ($birdOrderRow = mysql_fetch_array($birdOrderSql_a, MYSQL_NUM)) {
+        $birdOrderRow[0]  = unserialize($birdOrderRow[0]);
+        array_push($birdOrderArray, json_decode(json_encode($birdOrderRow), true));
+      }
+      // $apiArray = array();
+      for ($i = 0; $i < count($birdOrderArray); $i++) {
+        for ($k = 0; $k < count($birdNameArray); $k++) {
+          if ($birdNameArray[$k][0] == $birdOrderArray[$i][0][0]['insuredName']) {
+            $this->audit($birdOrderArray[$i][1]);
+            continue;
+          }
+        }
+      }
+    } else {
+      print '今天没人发布';
+    }
+  }
 
+  // 检查出险审核是否通过
+  public function audit($uuid)
+  {
+    // echo $uuid;
+    $damagecode = '已投保';
+    $damageable = '以审核通过';
+    $textTpl = "
+    <?xml version=1.0 encoding='utf-8'?>
+      <PACKET TYPE=REQUEST VERSION=1.0>
+      <requesthead>
+        <user>%s</user>
+        <password>%s</password>
+        <server_version>%s</server_version>
+        <sender>%s</sender>
+        <uuid>%s</uuid>
+        <flowintime$>%s</flowintime>
+      </requesthead>
+      <requestbody>
+      <damagecode>%s</damagecode>
+      <damageable>%s</damageable>
+    </requestbody>
+    </PACKET>";
+    $xml = sprintf($textTpl, $this->user, $this->password, $this->server_version, $this->sender, $uuid, $this->getMsecTime(), $damagecode, $damageable);
+    $url = 'http://113.12.195.135:8088/picc-sinosoft-consumer-gc/Picc/Gc';
+    $curl = curl_init();
+    $header[] = "Content-type: text/xml";
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+    $res = curl_exec($curl);
+    curl_close($curl);
+    if ($res == '进入熔断器了') {
+      $this->sendData('进入熔断器了');
+    } else {
+      $postObj = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
+      $this->savePolicyno($postObj);
+      $this->sendData($postObj);
+    }
+  }
+	
 }
