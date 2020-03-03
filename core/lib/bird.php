@@ -292,7 +292,7 @@ class bird
       "sign" => "归巢科技", // 短信一开始的签名字符串
       'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
       'time' => time(),
-      'tpl_id' => 350202,
+      'tpl_id' => 497893,
     );
     $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=' . $strRand;
     // $res = $this->http->tencentHttpsPost($url, json_encode($data));
