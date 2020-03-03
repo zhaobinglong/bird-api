@@ -282,11 +282,10 @@ class bird
     $mypost = json_decode($rws_post);
     $strRand = $this->str_rand(10); //URL 中的 random 字段的值
     $sign = $this->getSMSSign('18965127265', $strRand);
-    $code = $this->str_rand(4);
     $data = array(
       "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
       "extend" => "",
-      'params' => array($code), // 短信中的参数
+      'params' => '有人发布了走失', // 短信中的参数
       'sig' => $sign, // 计算出来的密钥
       "sign" => "归巢科技", // 短信一开始的签名字符串
       'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
