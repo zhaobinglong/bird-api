@@ -16,7 +16,9 @@ header("Content-type: text/html; charset=utf-8");
 include 'http.class.php';
 require_once __ROOT__ . '/core/common/goods_redis.php';
 
+require __ROOT__ . "../sms/index.php";
 
+use Qcloud\Sms\SmsSingleSender;
 
 class bird
 {
@@ -275,36 +277,44 @@ class bird
 
     $res = $this->db->dql($sql);
     $this->sendData($res, $sql);
-    // $this->shortNote();
+    $this->shortNote();
   }
   public function shortNote()
   {
-    // 短信应用 SDK AppID
-    $appid = 1400219769; // SDK AppID 以1400开头
-    // 短信应用 SDK AppKey
-    $appkey = "ff080d03bd607502f4fed7e1a1752beb";
-    // 需要发送短信的手机号码
-    $phoneNumbers = ["18965127265", "12345678902", "12345678903"];
-    // 短信模板 ID，需要在短信控制台中申请
-    $templateId = 497893;  // NOTE: 这里的模板 ID`7839`只是示例，真实的模板 ID 需要在短信控制台中申请
-    $smsSign = "归巢寻人"; // NOTE: 签名参数使用的是`签名内容`，而不是`签名ID`。这里的签名"腾讯云"只是示例，真实的签名需要在短信控制台
-    try {
-      $ssender = new SmsSingleSender($appid, $appkey);
-      $params = ["5678"];
-      $result = $ssender->sendWithParam(
-        "86",
-        $phoneNumbers[0],
-        $templateId,
-        $params,
-        $smsSign,
-        "",
-        ""
-      );
-      $rsp = json_decode($result);
-      echo $result;
-    } catch (\Exception $e) {
-      echo var_dump($e);
-    }
+    $strRand = $this->str_rand(10); //URL 中的 random 字段的值
+    $sign = $this->getSMSSign('18965127265', $strRand);
+    $code = $this->str_rand(4);
+    $data = array(
+      "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
+      "extend" => "",
+      'params' => array(), // 短信中的参数
+      'sig' => $sign, // 计算出来的密钥
+      "sign" => "归巢科技", // 短信一开始的签名字符串
+      'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
+      'time' => time(),
+      'tpl_id' => 497893,
+    );
+    $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=' . $strRand;
+    // $res = $this->http->tencentHttpsPost($url, json_encode($data));
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+    $httpheader[] = "Accept:application/json";
+    $httpheader[] = "Accept-Encoding:gzip,deflate,sdch";
+    $httpheader[] = "Accept-Language:zh-CN,zh;q=0.8";
+    $httpheader[] = "Connection:close";
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+    curl_setopt($ch, CURLOPT_ENCODING, "gzip");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $ret = curl_exec($ch);
+    curl_close($ch);
   }
 
   // 提交线索
