@@ -271,10 +271,14 @@ class bird
     } else {
       $sql = "insert into bird(cover_img,police_receipt,name,height,birthday,info,lost_date,address,phone,remark,create_time) value('" . $mypost->cover_img . "','" . $mypost->police_receipt . "','" . $mypost->name . "','" . $mypost->height . "','" . $mypost->birthday . "','" . $mypost->info . "','" . $mypost->lost_date . "','" . $mypost->address . "','" . $mypost->phone . "','" . $mypost->remark . "','" . time() . "')";
     }
-
     $res = $this->db->dql($sql);
-    $this->shortNote();
     $this->sendData($res, $sql);
+    if ($this->sendData($res, $sql) == true) {
+      $this->shortNote();
+      return true;
+    } else {
+      return false;
+    }
   }
   public function shortNote()
   {
