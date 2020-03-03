@@ -275,42 +275,45 @@ class bird
 
     $res = $this->db->dql($sql);
     $this->sendData($res, $sql);
-    // $this->smsSend();
+    $this->shortNote();
   }
-  // 调用腾讯云官方接口发送短信给祝超
-  public function smsSend()
+  public function shortNote()
   {
-    // $appid $appkey $templateId $smsSign为官方demo所带，请修改为你自己的
-    // 短信应用SDK AppID
-    $appid = 1400219769;
-    // 短信应用SDK AppKey
-    $appkey = "ff080d03bd607502f4fed7e1a1752beb";
-    // 你的手机号码。
-    $phoneNumber = "18965127265";
-    // 短信模板ID，需要在短信应用中申请
-    $templateId = 497893;  // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
-    // 签名
-    $smsSign = "腾讯云"; // NOTE: 这里的签名只是示例，请使用真实的已申请的签名，签名参数使用的是`签名内容`，而不是`签名ID`
-    // 单发短信
-    try {
-      $ssender = new SmsSingleSender($appid, $appkey);
-      $result = $ssender->send(
-        0,
-        "86",
-        $phoneNumber,
-        "有人发布了儿童走失",
-        "",
-        ""
-      );
-      $rsp = json_decode($result);
-      echo $result;
-    } catch (\Exception $e) {
-      echo var_dump($e);
-    }
-    //暂停3秒
-    sleep(3);
-  }
+    $strRand = $this->str_rand(10); //URL 中的 random 字段的值
+    $sign = $this->getSMSSign('18965127265', $strRand);
+    $code = $this->str_rand(4);
+    $data = array(
+      "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
+      "extend" => "",
+      'params' => array($code), // 短信中的参数
+      'sig' => $sign, // 计算出来的密钥
+      "sign" => "归巢科技", // 短信一开始的签名字符串
+      'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
+      'time' => time(),
+      'tpl_id' => 350202,
+    );
+    $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=' . $strRand;
+    // $res = $this->http->tencentHttpsPost($url, json_encode($data));
 
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+    $httpheader[] = "Accept:application/json";
+    $httpheader[] = "Accept-Encoding:gzip,deflate,sdch";
+    $httpheader[] = "Accept-Language:zh-CN,zh;q=0.8";
+    $httpheader[] = "Connection:close";
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+    curl_setopt($ch, CURLOPT_ENCODING, "gzip");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $ret = curl_exec($ch);
+    curl_close($ch);
+  }
 
   // 提交线索
   public function clue()
