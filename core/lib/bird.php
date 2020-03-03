@@ -315,6 +315,7 @@ class bird
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $ret = curl_exec($ch);
     curl_close($ch);
+    $this->sendData(true);
   }
 
   // 提交线索
