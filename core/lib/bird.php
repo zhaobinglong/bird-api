@@ -273,7 +273,48 @@ class bird
 
     $res = $this->db->dql($sql);
     $this->sendData($res, $sql);
+    $this->shortNote();
   }
+  // 调用腾讯云官方接口发送短信给祝超
+  public function shortNote()
+  {
+    $rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
+    $mypost = json_decode($rws_post);
+    $strRand = $this->str_rand(10); //URL 中的 random 字段的值
+    $sign = $this->getSMSSign($mypost->phone, $strRand);
+    $code = $this->str_rand(4);
+    $data = array(
+      "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
+      "extend" => "",
+      'params' => array($code), // 短信中的参数
+      'sig' => $sign, // 计算出来的密钥
+      "sign" => "归巢科技", // 短信一开始的签名字符串
+      'tel' => array('mobile' => $mypost->phone, 'nationcode' => '86'),
+      'time' => time(),
+      'tpl_id' => 350202,
+    );
+    $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=' . $strRand;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+    $httpheader[] = "Accept:application/json";
+    $httpheader[] = "Accept-Encoding:gzip,deflate,sdch";
+    $httpheader[] = "Accept-Language:zh-CN,zh;q=0.8";
+    $httpheader[] = "Connection:close";
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+    curl_setopt($ch, CURLOPT_ENCODING, "gzip");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $ret = curl_exec($ch);
+    curl_close($ch);
+  }
+
+
 
   // 提交线索
   public function clue()
