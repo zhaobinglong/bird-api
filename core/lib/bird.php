@@ -282,7 +282,7 @@ class bird
     $rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
     $mypost = json_decode($rws_post);
     $strRand = $this->str_rand(10); //URL 中的 random 字段的值
-    $sign = $this->getSMSSign($mypost->phone, $strRand);
+    $sign = $this->getSMSSign('18965127265', $strRand);
     $code = $this->str_rand(4);
     $data = array(
       "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
