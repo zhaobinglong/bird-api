@@ -287,12 +287,12 @@ class bird
     $data = array(
       "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
       "extend" => "",
-      'params' => array($code), // 短信中的参数
+      'params' => 'bzdbzd', // 短信中的参数
       'sig' => $sign, // 计算出来的密钥
       "sign" => "归巢科技", // 短信一开始的签名字符串
       'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
       'time' => time(),
-      'tpl_id' => 497893,
+      'tpl_id' => 350202,
     );
     $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=' . $strRand;
     // $res = $this->http->tencentHttpsPost($url, json_encode($data));
