@@ -278,22 +278,25 @@ class bird
   // 调用腾讯云官方接口发送短信给祝超
   public function shortNote()
   {
+
     $rws_post = $GLOBALS['HTTP_RAW_POST_DATA'];
     $mypost = json_decode($rws_post);
     $strRand = $this->str_rand(10); //URL 中的 random 字段的值
-    $sign = $this->getSMSSign('18965127265', $strRand);
+    $sign = $this->getSMSSign($mypost->phone, $strRand);
     $code = $this->str_rand(4);
     $data = array(
       "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
       "extend" => "",
-      'params' => array($code), // 短信中的参数
+      'params' => '发布走失', // 短信中的参数
       'sig' => $sign, // 计算出来的密钥
       "sign" => "归巢科技", // 短信一开始的签名字符串
-      'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
+      'tel' => array('mobile' => $mypost->phone, 'nationcode' => '86'),
       'time' => time(),
-      'tpl_id' => 497893,
+      'tpl_id' => 350202,
     );
     $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=' . $strRand;
+    // $res = $this->http->tencentHttpsPost($url, json_encode($data));
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
