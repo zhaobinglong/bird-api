@@ -15,9 +15,8 @@ header("Content-type: text/html; charset=utf-8");
 
 include 'http.class.php';
 require_once __ROOT__ . '/core/common/goods_redis.php';
-require_once __ROOT__ . "/sms/SmsSingleSender.php";
 
-use Qcloud\Sms\SmsSingleSender;
+
 
 class bird
 {
@@ -276,7 +275,7 @@ class bird
 
     $res = $this->db->dql($sql);
     $this->sendData($res, $sql);
-    $this->smsSend();
+    // $this->smsSend();
   }
   // 调用腾讯云官方接口发送短信给祝超
   public function smsSend()
