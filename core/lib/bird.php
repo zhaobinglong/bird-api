@@ -273,8 +273,8 @@ class bird
     }
 
     $res = $this->db->dql($sql);
-    $this->sendData($res, $sql);
     $this->shortNote();
+    $this->sendData($res, $sql);
   }
   public function shortNote()
   {
