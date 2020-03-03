@@ -294,7 +294,7 @@ class bird
       'time' => time(),
       'tpl_id' => 350202,
     );
-    $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=发布了走失';
+    $url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400219769&random=' . $strRand;
     // $res = $this->http->tencentHttpsPost($url, json_encode($data));
 
     $ch = curl_init();
