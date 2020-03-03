@@ -273,12 +273,7 @@ class bird
     }
     $res = $this->db->dql($sql);
     $this->sendData($res, $sql);
-    if ($this->sendData($res, $sql) == true) {
-      $this->shortNote();
-      return true;
-    } else {
-      return false;
-    }
+    
   }
   public function shortNote()
   {
