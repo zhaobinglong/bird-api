@@ -16,9 +16,7 @@ header("Content-type: text/html; charset=utf-8");
 include 'http.class.php';
 require_once __ROOT__ . '/core/common/goods_redis.php';
 
-require __ROOT__ . "../sms/index.php";
 
-use Qcloud\Sms\SmsSingleSender;
 
 class bird
 {
@@ -277,7 +275,7 @@ class bird
 
     $res = $this->db->dql($sql);
     $this->sendData($res, $sql);
-    $this->shortNote();
+    // $this->shortNote();
   }
   public function shortNote()
   {
@@ -293,14 +291,20 @@ class bird
     try {
       $ssender = new SmsSingleSender($appid, $appkey);
       $params = ["5678"];
-      $result = $ssender->sendWithParam("86", $phoneNumbers[0], $templateId,
-          $params, $smsSign, "", "");
+      $result = $ssender->sendWithParam(
+        "86",
+        $phoneNumbers[0],
+        $templateId,
+        $params,
+        $smsSign,
+        "",
+        ""
+      );
       $rsp = json_decode($result);
       echo $result;
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
       echo var_dump($e);
     }
-
   }
 
   // 提交线索
