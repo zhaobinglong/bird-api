@@ -16,9 +16,6 @@ header("Content-type: text/html; charset=utf-8");
 include 'http.class.php';
 require_once __ROOT__ . '/core/common/goods_redis.php';
 
-require __ROOT__ . "../sms/index.php";
-
-use Qcloud\Sms\SmsSingleSender;
 
 class bird
 {
