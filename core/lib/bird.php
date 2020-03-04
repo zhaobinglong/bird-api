@@ -3,7 +3,7 @@
 //允许的来源
 header("Access-Control-Allow-Origin:*");
 //OPTIONS通过后，保存的时间，如果不超过这个时间，是不会再次发起OPTIONS请求的。
-header("Access-Control-Max-Age: 86400");
+header("Access-Control-Max-Age: 0");
 //!!!之前我碰到和你一样的问题，这个没有加导致的。
 header("Access-Control-Allow-Headers: Content-Type");
 //允许的请求方式
@@ -274,18 +274,20 @@ class bird
     $res = $this->db->dql($sql);
     $this->sendData($res, $sql);
   }
+
+  // 走失发布发短信
   public function shortNote()
   {
+    echo '1';
     $strRand = $this->str_rand(10); //URL 中的 random 字段的值
-    $sign = $this->getSMSSign('18965127265', $strRand);
-    $code = $this->str_rand(4);
+    $sign = $this->getSMSSign('15860704963', $strRand);
     $data = array(
       "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
       "extend" => "",
       'params' => array(), // 短信中的参数
       'sig' => $sign, // 计算出来的密钥
       "sign" => "归巢科技", // 短信一开始的签名字符串
-      'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
+      'tel' => array('mobile' => '15860704963', 'nationcode' => '86'),
       'time' => time(),
       'tpl_id' => 497893,
     );
@@ -310,6 +312,7 @@ class bird
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $ret = curl_exec($ch);
     curl_close($ch);
+    $this->sendData(true);
   }
 
   // 提交线索
