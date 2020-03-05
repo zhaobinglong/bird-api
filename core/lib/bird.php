@@ -280,15 +280,15 @@ class bird
   {
     echo '1';
     $strRand = $this->str_rand(10); //URL 中的 random 字段的值
-    // $sign = $this->getSMSSign('15860704933', $strRand);
-    $sign = $this->getSMSSign('18965127265', $strRand);
+    $sign = $this->getSMSSign('15860704933', $strRand);
+    // $sign = $this->getSMSSign('18965127265', $strRand);
     $data = array(
       "ext" => "", //用户的 session 内容，腾讯 server 回包中会原样返回，可选字段，不需要就填空
       "extend" => "",
       'params' => array(), // 短信中的参数
       'sig' => $sign, // 计算出来的密钥
       "sign" => "归巢科技", // 短信一开始的签名字符串
-      'tel' => array('mobile' => '18965127265', 'nationcode' => '86'),
+      'tel' => array('mobile' => '15860704933', 'nationcode' => '86'),
       'time' => time(),
       'tpl_id' => 497893,
     );
